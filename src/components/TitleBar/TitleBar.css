@@ -1,0 +1,30 @@
+.table {
+    background-color: #282828;
+    width: 100%;
+}
+
+h1 {
+    color: white;
+}
+
+h4 {
+    color: white;
+}
+
+.input {
+    background-color: #282828;
+    width: 850px;
+    height: 50px;
+    margin: 20px 0;
+}
+
+.button {
+    background-color: #282828;
+}
+
+.logo {
+    background-image: url(../../Images/youtube-logo.jpg);
+    width: 150px;
+    height: 75px;
+    float: left;
+}
