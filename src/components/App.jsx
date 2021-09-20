@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import TitleBar from './TitleBar/TitleBar';
 import Footer from './Footer/Footer';
-import DisplayVideosList from './DisplayVideosList/DisplayVideosList';
 import VideoPlayer from './VideoPlayer/VideoPlayer';
+import SearchBar from './SearchBar/SearchBar';
 
 
 class App extends Component {
@@ -12,7 +12,8 @@ class App extends Component {
         this.state = {
             videosList: [],
             selectedVideo: null,
-            videoId: undefined
+            videoId: undefined,
+            searchTerm: undefined
         }
     }
 
@@ -21,8 +22,7 @@ class App extends Component {
     }
 
     async getAllVideos () {
-        let response = await axios.get('https://www.googleapis.com/youtube/v3/search?q=&key=AIzaSyDGT2wmYNwgjpSZBLsHbZ7PKbo1Qw99fsA&part=snippet&type=video&maxResults=5')
-        //TODO: when getting a successful response from the video search, also set the selectedVideo state variable to one of the items in the "kind" array
+        let response = await axios.get('https://www.googleapis.com/youtube/v3/search?q=dogs&key=AIzaSyCdCOmaGNt556mi1fOP-wU0GdVxWTLvDvg&part=snippet&type=video&maxResults=5')
         console.log(response.data.items[0].id.videoId)
         this.setState({
             videosList: response.data,
@@ -36,9 +36,14 @@ class App extends Component {
         });
     }
 
-    getVideoDetail = async (videoId) => {
-        await axios.get(`https://www.googleapis.com/youtube/v3/search?q=&key=AIzaSyDGT2wmYNwgjpSZBLsHbZ7PKbo1Qw99fsA${videoId}`);
-        this.getAllVideos()
+    getVideosBySearch = async (searchCriteria) => {
+        console.log(searchCriteria);
+        let search = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${searchCriteria}&key=AIzaSyCdCOmaGNt556mi1fOP-wU0GdVxWTLvDvg&part=snippet&type=video&maxResults=5`);
+        this.setState({
+            searchTerm: searchCriteria,
+            videosList: search.data,
+            selectedVideo: search.data.items[0].id.videoId
+        });
     }
 
     render() {
@@ -46,7 +51,7 @@ class App extends Component {
         return (
             <React.Fragment>
                 <TitleBar />
-                <DisplayVideosList listVideos={this.state.videosList}/>
+                <SearchBar searchForVideos={this.getVideosBySearch}/>
                 <VideoPlayer videoId={this.state.selectedVideo} />
                 <Footer />
             </React.Fragment>

@@ -13,8 +13,6 @@ const VideoPlayer = (props) => {
                                 src={(`http://www.youtube.com/embed/${props.videoId}/`)}
                                 frameborder="0">
                             </iframe>
-                            <h2>Video Title</h2>
-                            <h4>Video Description</h4>
                         </div>
                     </div>
                 </div>
