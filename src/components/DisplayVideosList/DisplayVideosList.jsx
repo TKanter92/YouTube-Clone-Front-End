@@ -1,20 +1,10 @@
 import React from 'react';
 import './DisplayVideosList.css';
 
-const DisplayVideosList = (props) => {
+function DisplayVideosList (props) {
     return (
         <React.Fragment>
-            <table>
-                <tbody>
-                    {props.videosList.map((video) => {
-                        return (
-                            <tr key={video.videoId}>
-                                <td>{video.videoId}</td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
+            {console.log(props)}
         </React.Fragment>
     )
 }
