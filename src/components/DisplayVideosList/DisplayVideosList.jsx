@@ -9,7 +9,6 @@ const DisplayVideosList = (props) => {
                     {props.videosList.map((video) => {
                         return (
                             <tr key={video.videoId}>
-                                <td>{video.kind}</td>
                                 <td>{video.videoId}</td>
                             </tr>
                         )
