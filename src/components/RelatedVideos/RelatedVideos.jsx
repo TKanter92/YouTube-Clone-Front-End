@@ -4,14 +4,12 @@ import React from 'react';
 const RelatedVideos = (props) => {
     return(
         <React.Fragment>
-            <div className="related-videos">
-                {console.log("Props Search Return List: ", props.searchReturnList)}
-                {/* <div className="card">
+            <div className="container">
+                <div className="card">
                     <button>
-                        <img src={props.searchReturnList.items[1].snippet.thumbnails.default.url} alt="thumbnail"/>
-                        <p>{props.searchReturnList.items[1].snippet.title}</p>
+                        <img src={props.videoThumbnail} alt="thumbnail"/>
                     </button>
-                </div> */}
+                </div>
             </div>
         </React.Fragment>
     )

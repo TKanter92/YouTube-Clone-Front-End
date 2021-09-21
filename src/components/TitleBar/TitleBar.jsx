@@ -5,7 +5,7 @@ import logo from '../../Images/youtube-logo.jpg';
 
 function TitleBar () {
     return (
-        <div className="title-bar">
+        <div className="title-bar" background-color="#282828">
             <body>
                 <div>
                     <img className="logo" src={logo} alt="YouTube" width="280px" height="100px" />

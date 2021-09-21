@@ -14,12 +14,13 @@ class App extends Component {
         super ();
         this.state = {
             videosList: [],
+            searchedVideosList: [],
             selectedVideo: null,
             videoId: undefined,
             searchTerm: undefined,
             videoTitle: undefined,
             videoDescription: undefined,
-            videoThumbnail: undefined,
+            videoThumbnail: [],
             comment_text:[]
         }
     }
@@ -29,13 +30,13 @@ class App extends Component {
     }
 
     async getAllVideos () {
-        let response = await axios.get('https://www.googleapis.com/youtube/v3/search?q=dogs&key=AIzaSyCdCOmaGNt556mi1fOP-wU0GdVxWTLvDvg&part=snippet&type=video&maxResults=5')
+        let response = await axios.get('https://www.googleapis.com/youtube/v3/search?q=dogs&key=AIzaSyDGT2wmYNwgjpSZBLsHbZ7PKbo1Qw99fsA&part=snippet&type=video&maxResults=5')
+        {console.log(response.data.items[0].snippet.thumbnails.medium.url)}
         this.setState({
             videosList: response.data,
             selectedVideo: response.data.items[0].id.videoId,
             videoTitle: response.data.items[0].snippet.title,
             videoDescription: response.data.items[0].snippet.description,
-            videoThumbnail: response.data.items[0].snippet.thumbnails.default.url
         });
     }
 
@@ -45,16 +46,22 @@ class App extends Component {
         });
     }
 
+    relatedVideosDisplay = async (index) => {
+        let result = await axios.get('https://www.googleapis.com/youtube/v3/search?q=dogs&key=AIzaSyDGT2wmYNwgjpSZBLsHbZ7PKbo1Qw99fsA&part=snippet&type=video&maxResults=5')
+        this.setState({
+            videoThumbnail: result.data.items[index].snippet.thumbnails.medium.url
+        });
+    }
+
     getVideosBySearch = async (searchCriteria) => {
-        let search = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${searchCriteria}&key=AIzaSyCdCOmaGNt556mi1fOP-wU0GdVxWTLvDvg&part=snippet&type=video&maxResults=5`);
+        let search = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${searchCriteria}&key=AIzaSyDGT2wmYNwgjpSZBLsHbZ7PKbo1Qw99fsA&part=snippet&type=video&maxResults=5`);
         console.log("Search Data: ", search.data.items)
         this.setState({
             searchTerm: searchCriteria,
-            videosList: search.data.items,
+            searchedVideosList: search.data.items,
             selectedVideo: search.data.items[0].id.videoId,
             videoTitle: search.data.items[0].snippet.title,
             videoDescription: search.data.items[0].snippet.description,
-            videoThumbnail: search.data.items[0].snippet.thumbnails.default.url
         });
     }
    
@@ -62,28 +69,51 @@ class App extends Component {
         console.log(this.state)
         return (
             <React.Fragment>
-                <div className="header">
-                    <TitleBar />
-                    <SearchBar searchForVideos={this.getVideosBySearch}/>
-                </div>
-                <div className="row">
-                    <div className="leftcolumn">
-                        <div className="card">
-                            <VideoPlayer videoId={this.state.selectedVideo} videoTitle={this.state.videoTitle} videoDescription={this.state.videoDescription}/>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-4">
+                            <div className="leftcolumn">
+                                <TitleBar />
+                            </div>
                         </div>
-                        <div className="card">
-                            <CommentSection videoId={this.state.selectedVideo}/>
-                            <Likes />
+                        <div className="col-md-4">
+                            <div className="centercolumn">
+                                <SearchBar searchForVideos={this.getVideosBySearch}/>
+                            </div>
+                        </div>
+                        <div className="col-md-4">
+                            <div className="rightcolumn">
+
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="rightcolumn">
-                    <div className="card">
-                        <RelatedVideos relatedSearchVideos={this.getVideosBySearch} searchReturnList={this.state.videosList} relatedOnStart={this.getAllVideos} />
+                    <div className="container">
+                        <div className="card">
+                            <div className="leftcolumn">
+                                <div className="col-md-8">
+                                    <VideoPlayer videoId={this.state.selectedVideo} videoTitle={this.state.videoTitle} videoDescription={this.state.videoDescription}/>
+                                    <CommentSection videoId={this.state.selectedVideo}/>
+                                    <Likes />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="rightcolumn">
+                                <div className="col-md-4">
+                                    <RelatedVideos displayVideoRelated={this.relatedVideosDisplay} relatedSearchVideos={this.getVideosBySearch} searchReturnList={this.state.searchedVideosList} relatedOnStart={this.getAllVideos} />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div className="footer">
-                    <Footer />
+                    <div className="container">
+                        <div className="card">
+                            <div className="row">
+                                <div className="footer" align="center">
+                                    <Footer />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </React.Fragment>
         );
