@@ -57,7 +57,7 @@ const CommentSection = (props) => {
         <div className="commentSection">
             <form onSubmit={handleSubmit} className="form" width="500">
                 <input type= "text" name="comment_text" className="form-control" placeholder= "Add a comment..." onInput={handleChange} value={commentData.comment_text}/>
-                <button type="submit" className="btn btn-dark" > Comment</button>
+                <button type="submit" className="btn btn-dark btn-sm float-right" > Comment</button>
             </form>
             {comments.map((comment)=>(
                 <div>

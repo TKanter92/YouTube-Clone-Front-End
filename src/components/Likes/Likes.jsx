@@ -9,9 +9,9 @@ function Likes () {
         <div className="likes">
             <h1>{count}</h1>
             <div className="button-wrapper">
-                <button onClick={()=>setCount(count - 1)}>-</button>
-                <button onClick={()=>setCount(count + 1)}>+</button>
-
+                <i class="material-icons" onClick={()=>setCount(count - 1)}>thumb_down</i>
+                <i class="material-icons" onClick={()=>setCount(count + 1)}>thumb_up</i>
+                
             </div>
 
         </div>
