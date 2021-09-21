@@ -1,13 +1,12 @@
-// import React, { Component } from 'react';
-// import './CommentsSection.css';
+
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 
 
-const initialComments={
-    comment_text: '',
+// const initialComments={
+//     comment_text: '',
 
-}
+// }
 
 const CommentSection = (props) => {
 
@@ -21,15 +20,31 @@ const CommentSection = (props) => {
     const [comments, setComments]= useState([])
 
     useEffect(()=>{
-        axios.get(`http://127.0.0.1:8000/youtube/video/${props.videoId}`)
-        .then((response)=>{setComments(response.data)})
+        fetchComments();
+    }, [props.videoId]);
+
+    useEffect(() => {
+    },[commentData, comments])
+
+    //     axios.get(`http://127.0.0.1:8000/youtube/video/${props.videoId}`)
+    //     .then((response)=>{setComments(response.data)})
+    //     setCommentData({
+    //         ...commentData,
+    //         video_id:props.videoId
+    //     })
+    // },[commentData,props.videoId])
+
+ 
+    async function fetchComments () {
+        await axios.get(`http://127.0.0.1:8000/youtube/video/${props.videoId}`)
+        .then((response) => {setComments(response.data)})
         setCommentData({
             ...commentData,
             video_id:props.videoId
         })
-    },[props.videoId])
+        // console.log(response);
+    }
 
- 
     const handleChange= (event)=> {
         const newData= {
             ...commentData, 
@@ -44,7 +59,7 @@ const CommentSection = (props) => {
           axios.post("http://127.0.0.1:8000/youtube/video", commentData)
             .then(res => {
                 console.log(res)
-                props.onSubmit(res.data)
+                // props.onSubmit(res.data)
                 axios.get(`http://127.0.0.1:8000/youtube/video/${props.videoId}`)
                 .then((response)=>{setComments(response.data)})
             })
@@ -54,10 +69,12 @@ const CommentSection = (props) => {
 
 
     return (
-        <div className="commentSection">
-            <form onSubmit={handleSubmit} className="form-row" >
+        <div onSubmit={handleSubmit} className="commentSection">
+            <form  className="form-row" >
                 <input type= "text" name="comment_text" class="form-control" placeholder= "Add a comment..." onInput={handleChange} value={commentData.comment_text}/>
                 <button type="submit" class="form-control" > Comment</button>
+
+                
             </form>
             {comments.map((comment)=>(
                 <div>

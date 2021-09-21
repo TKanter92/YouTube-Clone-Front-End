@@ -18,7 +18,6 @@ class App extends Component {
             searchTerm: undefined,
             videoTitle: undefined,
             videoDescription: undefined,
-            comment_text:[]
         }
     }
 
