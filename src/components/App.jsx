@@ -4,6 +4,8 @@ import TitleBar from './TitleBar/TitleBar';
 import Footer from './Footer/Footer';
 import VideoPlayer from './VideoPlayer/VideoPlayer';
 import SearchBar from './SearchBar/SearchBar';
+import CommentSection from './CommentsSection/CommentsSection';
+import Likes from './Likes/Likes';
 
 
 class App extends Component {
@@ -15,7 +17,8 @@ class App extends Component {
             videoId: undefined,
             searchTerm: undefined,
             videoTitle: undefined,
-            videoDescription: undefined
+            videoDescription: undefined,
+            comment_text:[]
         }
     }
 
@@ -50,6 +53,7 @@ class App extends Component {
         });
     }
 
+   
     render() {
         console.log(this.state)
         return (
@@ -57,6 +61,8 @@ class App extends Component {
                 <TitleBar />
                 <SearchBar searchForVideos={this.getVideosBySearch}/>
                 <VideoPlayer videoId={this.state.selectedVideo} videoTitle={this.state.videoTitle} videoDescription={this.state.videoDescription}/>
+                <CommentSection videoId={this.state.selectedVideo}/>
+                <Likes />
                 <Footer />
             </React.Fragment>
         );

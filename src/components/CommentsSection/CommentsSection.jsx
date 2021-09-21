@@ -1,47 +1,116 @@
-import React, { Component } from 'react';
-import './CommentsSection.css';
-
-class CommentsSection extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {}
-    }
-
-    handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-        // this.props. // come up with new name for props //
-    }
+// import React, { Component } from 'react';
+// import './CommentsSection.css';
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
 
 
-    render() {
-        return (
-            <React.Fragment>
-                <div class="row">
-                    <div class="leftcolumn">
-                        <div class="card">
-                            <div>
-                                <h4>Comments</h4>
-                            </div>
-                            <div class="leavecomment">
-                                <label for="comment" className="comment">Leave A Comment</label>
-                                <input />
-                                <button />
-                            </div>
-                            <div>
-                                <p>Video comments</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>  
-            </React.Fragment>
-        );
-    }
+const initialComments={
+    comment_text: '',
+
 }
 
-export default CommentsSection;
+const CommentSection = (props) => {
+
+    const [commentData, setCommentData]= useState({
+        comment_text: '',
+        video_id: props.videoId
+    
+    }
+    );
+
+    const [comments, setComments]= useState([])
+
+    useEffect(()=>{
+        axios.get(`http://127.0.0.1:8000/youtube/video/${props.videoId}`)
+        .then((response)=>{setComments(response.data)})
+        setCommentData({
+            ...commentData,
+            video_id:props.videoId
+        })
+    },[props.videoId])
+
+ 
+    const handleChange= (event)=> {
+        const newData= {
+            ...commentData, 
+            [event.target.name]: event.target.value
+        }
+        setCommentData(newData);
+    };
+
+    
+    const handleSubmit= (event)=> {
+        event.preventDefault()
+          axios.post("http://127.0.0.1:8000/youtube/video", commentData)
+            .then(res => {
+                console.log(res)
+                props.onSubmit(res.data)
+                axios.get(`http://127.0.0.1:8000/youtube/video/${props.videoId}`)
+                .then((response)=>{setComments(response.data)})
+            })
+            .catch(err => console.log(err));     
+    };
+
+
+
+    return (
+        <div className="commentSection">
+            <form onSubmit={handleSubmit} className="form-row" >
+                <input type= "text" name="comment_text" class="form-control" placeholder= "Add a comment..." onInput={handleChange} value={commentData.comment_text}/>
+                <button type="submit" class="form-control" > Comment</button>
+            </form>
+            {comments.map((comment)=>(
+                <div>
+                    {comment.comment_text}
+                </div>
+            ))}
+        </div>
+      );
+
+}
+ 
+export default CommentSection;
+// class CommentsSection extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {}
+//     }
+
+//     handleChange = (event) => {
+//         this.setState({
+//             [event.target.name]: event.target.value
+//         });
+//     }
+
+//     handleSubmit = (event) => {
+//         event.preventDefault();
+//         // this.props. // come up with new name for props //
+//     }
+
+
+//     render() {
+//         return (
+//             <React.Fragment>
+//                 <div class="row">
+//                     <div class="leftcolumn">
+//                         <div class="card">
+//                             <div>
+//                                 <h4>Comments</h4>
+//                             </div>
+//                             <div class="leavecomment">
+//                                 <label for="comment" className="comment">Leave A Comment</label>
+//                                 <input />
+//                                 <button />
+//                             </div>
+//                             <div>
+//                                 <p>Video comments</p>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>  
+//             </React.Fragment>
+//         );
+//     }
+// }
+
+// export default CommentsSection;
