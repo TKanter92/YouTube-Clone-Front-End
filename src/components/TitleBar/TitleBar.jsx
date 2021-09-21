@@ -1,23 +1,17 @@
 import React from 'react';
-import './TitleBar.css';
 import logo from '../../Images/youtube-logo.jpg'; 
+
 
 
 function TitleBar () {
     return (
-        <table className="table">
-            <tbody>
-                <tr>
-                    <td align="left"><img className="logo" src={logo} alt="YouTube" /></td>
-                    <td align="center">
-                        
-                    </td>
-                    <td align="right">
-                        <h4>Profile</h4>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div className="title-bar">
+            <body>
+                <div>
+                    <img className="logo" src={logo} alt="YouTube" width="280px" height="100px" />
+                </div>
+            </body>
+        </div>
     )
 }
 
