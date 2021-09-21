@@ -46,6 +46,7 @@ class App extends Component {
     }
 
     getVideosBySearch = async (searchCriteria) => {
+        console.log("searching criteria",searchCriteria)
         let search = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${searchCriteria}&key=AIzaSyCdCOmaGNt556mi1fOP-wU0GdVxWTLvDvg&part=snippet&type=video&maxResults=5`);
         console.log("Search Data: ", search.data.items)
         this.setState({
