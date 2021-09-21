@@ -1,13 +1,7 @@
-// import React, { Component } from 'react';
-// import './CommentsSection.css';
+
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 
-
-const initialComments={
-    comment_text: '',
-
-}
 
 const CommentSection = (props) => {
 
@@ -21,15 +15,22 @@ const CommentSection = (props) => {
     const [comments, setComments]= useState([])
 
     useEffect(()=>{
-        axios.get(`http://127.0.0.1:8000/youtube/video/${props.videoId}`)
-        .then((response)=>{setComments(response.data)})
+        fetchComments();
+    }, [props.videoId]);
+
+    useEffect(() => {
+    },[commentData, comments])
+
+ 
+    async function fetchComments () {
+        await axios.get(`http://127.0.0.1:8000/youtube/video/${props.videoId}`)
+        .then((response) => {setComments(response.data)})
         setCommentData({
             ...commentData,
             video_id:props.videoId
         })
-    },[props.videoId])
+    }
 
- 
     const handleChange= (event)=> {
         const newData= {
             ...commentData, 
@@ -44,7 +45,6 @@ const CommentSection = (props) => {
           axios.post("http://127.0.0.1:8000/youtube/video", commentData)
             .then(res => {
                 console.log(res)
-                props.onSubmit(res.data)
                 axios.get(`http://127.0.0.1:8000/youtube/video/${props.videoId}`)
                 .then((response)=>{setComments(response.data)})
             })
@@ -57,7 +57,7 @@ const CommentSection = (props) => {
         <div className="commentSection">
             <form onSubmit={handleSubmit} className="form" width="500">
                 <input type= "text" name="comment_text" className="form-control" placeholder= "Add a comment..." onInput={handleChange} value={commentData.comment_text}/>
-                <button type="submit" className="form-control" > Comment</button>
+                <button type="submit" className="btn btn-dark" > Comment</button>
             </form>
             {comments.map((comment)=>(
                 <div>
