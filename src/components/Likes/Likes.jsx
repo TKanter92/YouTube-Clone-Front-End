@@ -7,7 +7,7 @@ function Likes () {
 
     return(
         <div className="likes">
-            <hi>{count}</hi>
+            <h1>{count}</h1>
             <div className="button-wrapper">
                 <button onClick={()=>setCount(count - 1)}>-</button>
                 <button onClick={()=>setCount(count + 1)}>+</button>

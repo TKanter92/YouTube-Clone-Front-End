@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './SearchBar.css';
+
 
 class SearchBar extends Component {
     constructor(props) {
@@ -12,7 +12,6 @@ class SearchBar extends Component {
         this.setState({
             [event.target.name]: event.target.value
         });
-        console.log(this.state.searchTerm)
     }
 
     handleSubmit = (event) => {
@@ -24,7 +23,7 @@ class SearchBar extends Component {
             <React.Fragment>
                 <form onSubmit={this.handleSubmit}>
                     <input onChange={this.handleChange} type="text" className="video-search" name="searchTerm" value={this.state.searchTerm} />
-                    <button type="submit">Search</button>
+                    <button className="button" type="submit">Search</button>
                 </form>
             </React.Fragment>
         )
