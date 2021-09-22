@@ -2,15 +2,18 @@ import { useState } from "react";
 import React from "react";
 
 function Likes () {
-    const[count, setCount]= useState(0);
+    const[likes, setLikes]= useState(0);
+    const[dislikes, setDislikes]= useState(0);
 
 
     return(
         <div className="likes">
-            <h1>{count}</h1>
+            <h1>{dislikes}</h1>
             <div className="button-wrapper">
-                <i class="material-icons" onClick={()=>setCount(count - 1)}>thumb_down</i>
-                <i class="material-icons" onClick={()=>setCount(count + 1)}>thumb_up</i>
+                <i class="small material-icons" onClick={()=>setDislikes(dislikes + 1)}>thumb_down</i>
+                <h1>{likes}</h1>
+
+                <i class="small material-icons" onClick={()=>setLikes(likes + 1)}>thumb_up</i>
                 
             </div>
 
