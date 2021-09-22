@@ -22,7 +22,7 @@ class App extends Component {
             videoTitle: undefined,
             videoDescription: undefined,
             videoThumbnail: [],
-            comment_text:[]
+            comment_text:[],
         }
     }
 
@@ -96,7 +96,7 @@ class App extends Component {
                                     <VideoPlayer videoId={this.state.selectedVideo} videoTitle={this.state.videoTitle} videoDescription={this.state.videoDescription}/>
                                     <CommentSection videoId={this.state.selectedVideo}/>
                                     <Likes />
-                                    {/* <Replies replies={this.state.selectedVideo}/> */}
+                                    <Replies commentId={this.state.comment_text}/>
                                 </div>
                             </div>
                         </div>

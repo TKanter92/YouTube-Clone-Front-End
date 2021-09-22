@@ -7,14 +7,14 @@ function Likes () {
 
 
     return(
-        <div className="likes">
-            <h1>{dislikes}</h1>
+        <div className="btn-group" role="group">
+            <h6>{dislikes}</h6>
             <div className="button-wrapper">
-                <i class="small material-icons" onClick={()=>setDislikes(dislikes + 1)}>thumb_down</i>
-                <h1>{likes}</h1>
-
-                <i class="small material-icons" onClick={()=>setLikes(likes + 1)}>thumb_up</i>
-                
+                <i class="tiny material-icons" onClick={()=>setDislikes(dislikes + 1)}>thumb_down</i>
+                <div className="btn-group" role="group">
+                    <h6>{likes}</h6>
+                </div>
+                <i class="tiny material-icons" onClick={()=>setLikes(likes + 1)}>thumb_up</i>
             </div>
 
         </div>
