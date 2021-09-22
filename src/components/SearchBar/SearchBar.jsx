@@ -25,7 +25,6 @@ class SearchBar extends Component {
                     <input onChange={this.handleChange} type="text" className="video-search" name="searchTerm" value={this.state.searchTerm} />
                     <button className="button" type="submit">Search</button>
                 </form>
-                
             </React.Fragment>
         )
     }
