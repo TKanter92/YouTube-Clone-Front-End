@@ -7,6 +7,7 @@ import SearchBar from './SearchBar/SearchBar';
 import CommentSection from './CommentsSection/CommentsSection';
 import Likes from './Likes/Likes';
 import RelatedVideos from './RelatedVideos/RelatedVideos';
+import Replies from './Replies/Replies';
 
 
 class App extends Component {
@@ -95,6 +96,7 @@ class App extends Component {
                                     <VideoPlayer videoId={this.state.selectedVideo} videoTitle={this.state.videoTitle} videoDescription={this.state.videoDescription}/>
                                     <CommentSection videoId={this.state.selectedVideo}/>
                                     <Likes />
+                                    <Replies replies={this.state.selectedVideo}/>
                                 </div>
                             </div>
                         </div>
