@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 
 
-const CommentSection = (props) => {
+const CommentsSection = (props) => {
 
     const [commentData, setCommentData]= useState({
         comment_text: '',
@@ -58,7 +58,6 @@ const CommentSection = (props) => {
             <form onSubmit={handleSubmit} className="form" width="500">
                 <input type= "text" name="comment_text" className="form-control" placeholder= "Add a comment..." onInput={handleChange} value={commentData.comment_text}/>
                 <button type="submit" className="btn btn-dark btn-sm float-right" > Comment</button>
-
             </form>
             {comments.map((comment)=>(
                 <div>
@@ -70,4 +69,4 @@ const CommentSection = (props) => {
 
 }
  
-export default CommentSection;
+export default CommentsSection;

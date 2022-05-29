@@ -8,6 +8,7 @@ class SearchBar extends Component {
             searchTerm: null
         }
     }
+
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
@@ -18,14 +19,15 @@ class SearchBar extends Component {
         event.preventDefault();
         this.props.searchForVideos(this.state.searchTerm);
     }
+
     render () {
         return (
-            <React.Fragment>
+            // <React.Fragment>
                 <form onSubmit={this.handleSubmit}>
                     <input onChange={this.handleChange} type="text" className="video-search" name="searchTerm" value={this.state.searchTerm} />
                     <button className="button" type="submit">Search</button>
                 </form>
-            </React.Fragment>
+            // </React.Fragment>
         )
     }
 }

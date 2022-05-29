@@ -5,12 +5,13 @@ import TitleBar from './TitleBar/TitleBar';
 import Footer from './Footer/Footer';
 import VideoPlayer from './VideoPlayer/VideoPlayer';
 import SearchBar from './SearchBar/SearchBar';
+// import CommentsSection from './CommentsSection/CommentsSection';
 import CommentSection from './CommentsSection/CommentsSection';
 import Likes from './Likes/Likes';
 import RelatedVideos from './RelatedVideos/RelatedVideos';
 import Replies from './Replies/Replies';
-import ProductDetails from './ProductDetails/ProductDetails';
 import ReviewForm from './ReviewForm/ReviewForm';
+import Home from './Home/Home';
 
 
 
@@ -129,17 +130,18 @@ class App extends Component {
                         </div>
                     </div>
                 </div> */}
+                {/* <Route path='/' element={<TitleBar />} />       */}
+                <Route path='/' element={<Home />} />      
 
                 <Route path='/' element={<SearchBar />} searchForVideos={this.getVideosBySearch}></Route>
                 <Route path='/' element={<VideoPlayer />} videoId={this.state.selectedVideo} videoTitle={this.state.videoTitle} videoDescription={this.state.videoDescription}></Route>                                     
-                <Route path='/' element={<CommentSection />} videoId={this.state.selectedVideo}></Route>                
-                <Route path='/' element={<Likes />} />          
+                <Route path='/home' element={<CommentSection />} videoId={this.state.selectedVideo}></Route>                
+                <Route path='/home' element={<Likes />} />          
                 <Route path='/' element={<Replies />} commentId={this.state.comment_text}></Route>
-                <Route path='/' element={<RelatedVideos />} displayVideoRelated={this.relatedVideosDisplay} relatedSearchVideos={this.getVideosBySearch} searchReturnList={this.state.searchedVideosList} relatedOnStart={this.getAllVideos} ></Route>
-                <Route path='/' element={<Footer />} />      
-                <Route path='/details' element={<ProductDetails />} render={props => <ProductDetails {...props} details={this.state.products} />} />
+                <Route path='/home' element={<RelatedVideos />} displayVideoRelated={this.relatedVideosDisplay} relatedSearchVideos={this.getVideosBySearch} searchReturnList={this.state.searchedVideosList} relatedOnStart={this.getAllVideos} ></Route>
                 <Route path='/review'  element={<ReviewForm />} render={props => <ReviewForm {...props} review={this.state.products} />} />
-                               
+                <Route path='/home' element={<Footer />} />      
+   
             </Routes>
         );
     }
